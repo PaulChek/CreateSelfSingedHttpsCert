@@ -3,7 +3,7 @@ using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 
 #region Subject
-Console.WriteLine("Enter domain fore your cert:");
+Console.WriteLine("Enter domain for your cert:");
 var domainName = Console.ReadLine();
 #endregion
 
@@ -13,14 +13,16 @@ int.TryParse(Console.ReadLine(), out int months);
 #endregion
 
 #region Path
-Console.WriteLine($"Enter path for exporting{domainName}.pfx file (users folder by default):");
-var path = Console.ReadLine() ?? "~";
+Console.WriteLine($"Enter path for exporting {domainName}.pfx file:");
+var path = Console.ReadLine();
+path = string.IsNullOrEmpty(path) ? Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) : path;
 Console.WriteLine($"Path will be {path}");
 #endregion
 
 #region password
 Console.WriteLine($"Enter password for certificate {domainName}.pfx (password by default):");
-var password = Console.ReadLine() ?? "password";
+var password = Console.ReadLine();
+password = String.IsNullOrEmpty(password) ? "password" : password;
 #endregion
 
 #region BuisnessLogic
